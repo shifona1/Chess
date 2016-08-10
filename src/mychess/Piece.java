@@ -64,7 +64,7 @@ class Rook extends Piece
             if(newx==prevx)
             {
                 int c=newy>prevy?1:-1;
-                for(int i=prevy;c>0?i<newy:i>newy;i+=c)
+                for(int i=prevy+c;c>0?i<newy:i>newy;i+=c)
                 {
                     if(b.tiles[newx][i].piece!=null)
                     {
@@ -78,7 +78,7 @@ class Rook extends Piece
             if(newy==prevy)
             {
                 int c=newx>prevx?1:-1;
-                for(int i=prevx;c>0?i<newx:i>newx;i+=c)
+                for(int i=prevx+c;c>0?i<newx:i>newx;i+=c)
                 {
                     if(b.tiles[i][newy].piece!=null)
                     {
@@ -142,7 +142,7 @@ class Bishop extends Piece
             {
                 int c=newx>prevx?1:-1;
                 int d=newy>prevy?1:-1;
-                int i=prevx,j=prevy;
+                int i=prevx+c,j=prevy+d;
                 while((newx>prevx?i<newx:i>newx)&&(newy>prevy?j<newy:j>newy))
                 {
                     if(b.tiles[i][j].piece!=null)

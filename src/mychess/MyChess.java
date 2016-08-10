@@ -20,7 +20,7 @@ public class MyChess {
     static boolean isBlackTurn=false;
     public MyChess() {
         board=new Board();
-        gui = new GUI(board);
+        gui = new GUI(board,this);
     }
     
     void start() {
@@ -40,9 +40,15 @@ public class MyChess {
         System.out.println("Please enter the coordinates of the new location of the piece in order: x :  y : ");
         int newx=in.nextInt();
         int newy=in.nextInt();
-        
+                //gui.repaint();
+            move(prevx,prevy,newx,newy);
+    }
+    
+    void move(int prevx,int prevy,int newx,int newy)
+    {
+            
         if(!(prevx>=0 && newx>=0 && prevx<8 && newx<8 && prevy>=0 && newy>=0 && prevy>=0 && newy>=0 )) {
-            System.out.println("Please enter the valis coordinates");;
+            System.out.println("Please enter the valid coordinates");;
             return;
         }
         if(board.tiles[prevx][prevy].piece==null)
@@ -71,9 +77,10 @@ public class MyChess {
                 System.out.println("Moved");
                 board.tiles[prevx][prevy].piece=null;
                 isBlackTurn=!isBlackTurn;
-                //gui.repaint();
-            
+    
     }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -88,7 +95,7 @@ public class MyChess {
                 try {
                     while(true) {
                     chess.gui.repaint();
-                    sleep(1000);
+                    sleep(100);
                     }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(MyChess.class.getName()).log(Level.SEVERE, null, ex);
