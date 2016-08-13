@@ -58,7 +58,7 @@ public class GUI extends JFrame implements MouseMotionListener, MouseListener
                         f.fillRect(highlighter_y*side+offsetx,highlighter_x*side+offsety,side,side);
                     }  
                     if(willMove)
-                if(i==click_x && j==click_y)
+                if(i==click_x && j==click_y) 
                 {
                     //willMove=true;
                     f.setColor(new Color(0,0,255,100));
@@ -81,7 +81,7 @@ public class GUI extends JFrame implements MouseMotionListener, MouseListener
                                     
                         }
                    
-                        }
+                    }
             
             
 //            else
@@ -102,8 +102,14 @@ public class GUI extends JFrame implements MouseMotionListener, MouseListener
 	{}
     
     @Override
+    
     public void mouseClicked(MouseEvent e) 
     {
+        if(!chess.canTakeInput())
+        {
+            JOptionPane.showMessageDialog(null,"Its not your turn !");
+            return;
+        }    
         click_y=(e.getX()-offsetx)/side;
         click_x=(e.getY()-offsety)/side;
         System.out.println(click_x+" "+click_y);
@@ -145,6 +151,7 @@ public class GUI extends JFrame implements MouseMotionListener, MouseListener
                    
                }
             });
+            chess.conn.sendMsg(prevx+" "+prevy+" "+newx+" "+newy);
       
          }
         //repaint (); 

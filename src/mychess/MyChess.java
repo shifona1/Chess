@@ -9,6 +9,7 @@ package mychess;
  *
  * @author shifona
  */
+import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ public class MyChess {
 
     GUI gui;
     Board board;
+    Connection conn;
     Scanner in=new Scanner(System.in);
     static boolean isBlackTurn=false;
     public MyChess() {
@@ -45,6 +47,10 @@ public class MyChess {
             move(prevx,prevy,newx,newy);
     }
     
+    boolean canTakeInput() {
+        return isBlackTurn^conn.isServer;
+           
+    }
     boolean move(int prevx,int prevy,int newx,int newy)
     {
             
@@ -57,11 +63,11 @@ public class MyChess {
             System.out.println("There is no piece to move! ");;
             return false;
         }
-        if((isBlackTurn && board.tiles[prevx][prevy].piece.color.equals("White"))||(!isBlackTurn && board.tiles[prevx][prevy].piece.color.equals("Black")))
-        {
-            JOptionPane.showMessageDialog(null,"Its not your turn !");
-            return false;
-        }
+//        if((isBlackTurn && board.tiles[prevx][prevy].piece.color.equals("White"))||(!isBlackTurn && board.tiles[prevx][prevy].piece.color.equals("Black")))
+//        {
+//            JOptionPane.showMessageDialog(null,"Its not your turn !");
+//            return false;
+//        }
             if(!board.tiles[prevx][prevy].piece.isValid(board, prevx, prevy, newx, newy))
             {
                 System.out.println("Invalid");
@@ -82,6 +88,7 @@ public class MyChess {
                 board.tiles[newx][newy].piece=board.tiles[prevx][prevy].piece;
                 System.out.println("Moved");
                 board.tiles[prevx][prevy].piece=null;
+                
                 isBlackTurn=!isBlackTurn;
                 return true;
     }
@@ -90,9 +97,13 @@ public class MyChess {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
+        
+        
         final MyChess chess = new MyChess();
+        chess.conn=new Connection(chess);
+        
         chess.start();
         new Thread(){
 

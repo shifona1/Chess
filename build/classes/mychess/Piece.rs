@@ -1,0 +1,9 @@
+mychess.Bishop
+mychess.Queen
+mychess.Horse
+mychess.Piece
+mychess.Knight
+mychess.Soldier
+mychess.Rook
+mychess.Pawn
+mychess.King
